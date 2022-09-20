@@ -23,17 +23,17 @@ script:
   - docker build -t udagram-api-feed ./udagram-api/udagram-api-feed
   - docker build -t udagram-frontend ./udagram-frontend
   #tagging images to dockerhub:
-  - docker tag reverseproxy khalid5165/reverseproxy
-  - docker tag udagram-api-user khalid5165/udagram-api-user
-  - docker tag udagram-api-feed khalid5165/udagram-api-feed
-  - docker tag udagram-frontend khalid5165/udagram-frontend
+  - docker tag reverseproxy khalid5165/reverseproxy:v6
+  - docker tag udagram-api-user khalid5165/udagram-api-user:v6
+  - docker tag udagram-api-feed khalid5165/udagram-api-feed:v6
+  - docker tag udagram-frontend khalid5165/udagram-frontend:v6
 
 # Tasks to perform after the process is successful. Formatting the Docker username and password as below enables you to programmatically log in without having the password exposed in logs.
 after_success:
   #logging into dockerhub account to push the images:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   #pushing all images into dockerhub repos:
-  - docker push khalid5165/reverseproxy
-  - docker push khalid5165/udagram-api-user
-  - docker push khalid5165/udagram-api-feed
-  - docker push khalid5165/udagram-frontend
+  - docker push khalid5165/reverseproxy:v6
+  - docker push khalid5165/udagram-api-user:v6
+  - docker push khalid5165/udagram-api-feed:v6
+  - docker push khalid5165/udagram-frontend:v6
