@@ -1,0 +1,6 @@
+POSTGRES_HOST=postgres.cre5trd3yjkk.us-east-1.rds.amazonaws.com
+POSTGRES_DB=postgres
+AWS_BUCKET="udagram5165"
+AWS_REGION=us-east-1
+AWS_PROFILE=default
+JWT_SECRET=hello
