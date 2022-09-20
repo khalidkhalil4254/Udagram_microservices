@@ -1,0 +1,22 @@
+version: "3"
+services:
+  #name each service and specify its context or path and name the result docker image
+  reverseproxy:
+    build:
+      context: ./udagram-reverseproxy
+    image: reverseproxy
+  #name each service and specify its context or path and name the result docker image
+  backend_user:
+    build:
+      context: ./udagram-api/udagram-api-user
+    image: udagram-api-user
+  #name each service and specify its context or path and name the result docker image
+  backend_feed:
+    build:
+      context: ./udagram-api/udagram-api-feed
+    image: udagram-api-feed
+  #name each service and specify its context or path and name the result docker image
+  frontend:
+    build:
+      context: ./udagram-frontend
+    image: udagram-frontend:local
