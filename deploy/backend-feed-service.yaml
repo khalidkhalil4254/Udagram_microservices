@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: feed-app
+  name: backend-feed
   labels:
-    run: feed-app
+    run: backend-feed
 spec:
   ports:
   - port: 8080
     protocol: TCP
   selector:
-    run: feed-app
+    run: backend-feed
