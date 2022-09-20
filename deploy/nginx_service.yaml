@@ -1,12 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-app
   labels:
-    run: nginx-app
+    service: reverseproxy
+  name: reverseproxy-svc
 spec:
   ports:
-  - port: 80
-    protocol: TCP
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
   selector:
-    run: nginx-app
+    service: reverseproxy
