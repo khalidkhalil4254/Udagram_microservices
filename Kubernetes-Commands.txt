@@ -1,0 +1,45 @@
+----(creating resources):-
+
+eksctl create cluster \
+--name udaCluster \
+--version 1.23 \
+--region us-east-1 \
+--nodegroup-name udaNodes \
+--node-type t3.small \
+--nodes-min 2 \
+--nodes-max 3
+
+(environment-variables):-
+kubectl apply -f aws-secret.yaml 
+kubectl apply -f env-secret.yaml 
+kubectl apply -f env-configmap.yaml 
+
+(deployments & services):-
+kubectl apply -f all-deployments.yaml
+kubectl apply -f all-services.yaml
+
+
+(adding-loadbalancer-ingress-for-deployments):-
+kubectl expose deployment <deploymentName> --type=LoadBalancer --name=<newServiceName>
+
+
+(getting-metadata-of-resources):-
+kubectl get pods
+kubectl get svc
+kubectl get nodes
+kubectl get pods
+
+
+----(deleting resources):-
+
+kubectl delete deployment --all
+kubectl delete service --all 
+kubectl delete pods --all 
+
+
+eksctl delete cluster --name=udaCluster
+
+
+
+
+
