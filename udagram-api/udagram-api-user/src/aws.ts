@@ -5,7 +5,7 @@ let bucketName: string = config.aws_media_bucket;
 
 //Configure AWS
 if(config.aws_profile !== "DEPLOYED") {
-  var credentials = new AWS.SharedIniFileCredentials({profile: c.aws_profile});
+  var credentials = new AWS.SharedIniFileCredentials({profile: config.aws_profile});
  AWS.config.credentials = credentials;
 }
 
