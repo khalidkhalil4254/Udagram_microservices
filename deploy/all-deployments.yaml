@@ -1,0 +1,279 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: feed-app
+  labels:
+    app: feed-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: feed-app
+  template:
+    metadata:
+      labels:
+        app: feed-app
+    spec:
+      containers:
+      - name: feed-app
+        image: khalid5165/udagram-api-feed
+        ports:
+        - containerPort: 8080
+        #setting env-vars:
+        env:
+        #setting secrets:
+          - name: POSTGRES_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: rds-secret
+                key: POSTGRES_USERNAME
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: rds-secret
+                key: POSTGRES_PASSWORD
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: aws-secret
+                key: aws_access_key_id
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: aws-secret
+                key: aws_secret_access_key
+          #setting configMap:
+          - name: POSTGRES_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: POSTGRES_HOST
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: POSTGRES_DB
+          - name: AWS_BUCKET
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: AWS_BUCKET
+          - name: AWS_REGION
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: AWS_REGION
+          - name: AWS_PROFILE
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: AWS_PROFILE
+          - name: JWT_SECRET
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: JWT_SECRET
+          - name: URL
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: URL
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-app
+  labels:
+    app: user-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: user-app
+  template:
+    metadata:
+      labels:
+        app: user-app
+    spec:
+      containers:
+      - name: user-app
+        image: khalid5165/udagram-api-user
+        ports:
+        - containerPort: 8080
+        #setting env-vars:
+        env:
+        #setting secrets:
+          - name: POSTGRES_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: rds-secret
+                key: POSTGRES_USERNAME
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: rds-secret
+                key: POSTGRES_PASSWORD
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: aws-secret
+                key: aws_access_key_id
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: aws-secret
+                key: aws_secret_access_key
+          #setting configMap:
+          - name: POSTGRES_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: POSTGRES_HOST
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: POSTGRES_DB
+          - name: AWS_BUCKET
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: AWS_BUCKET
+          - name: AWS_REGION
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: AWS_REGION
+          - name: AWS_PROFILE
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: AWS_PROFILE
+          - name: JWT_SECRET
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: JWT_SECRET
+          - name: URL
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: URL
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-app
+  labels:
+    app: frontend-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend-app
+  template:
+    metadata:
+      labels:
+        app: frontend-app
+    spec:
+      containers:
+      - name: udagram-frontend
+        image: khalid5165/udagram-frontend:v0
+        ports:
+        - containerPort: 80
+        #setting env-vars:
+        env:
+        #setting secrets:
+          - name: POSTGRES_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: rds-secret
+                key: POSTGRES_USERNAME
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: rds-secret
+                key: POSTGRES_PASSWORD
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: aws-secret
+                key: aws_access_key_id
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: aws-secret
+                key: aws_secret_access_key
+          #setting configMap:
+          - name: POSTGRES_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: POSTGRES_HOST
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: POSTGRES_DB
+          - name: AWS_BUCKET
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: AWS_BUCKET
+          - name: AWS_REGION
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: AWS_REGION
+          - name: AWS_PROFILE
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: AWS_PROFILE
+          - name: JWT_SECRET
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: JWT_SECRET
+          - name: URL
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: URL
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: reverseproxy
+  name: reverseproxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: reverseproxy
+  template:
+    metadata:
+      labels:
+        service: reverseproxy
+    spec:
+      containers:
+      - image: khalid5165/reverseproxy:pls
+        name: reverseproxy
+        imagePullPolicy: Always          
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "1024Mi"
+            cpu: "500m"       
+        ports:
+        - containerPort: 8080
+      restartPolicy: Always
