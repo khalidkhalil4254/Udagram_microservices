@@ -8,6 +8,6 @@ data:
   POSTGRES_DB : postgres
   AWS_BUCKET : udagram5165
   AWS_REGION : us-east-1
-  AWS_PROFILE : default
+  AWS_PROFILE : DEPLOYED
   JWT_SECRET : hello
-  URL: http://localhost:8080
+  URL: http://localhost:8100

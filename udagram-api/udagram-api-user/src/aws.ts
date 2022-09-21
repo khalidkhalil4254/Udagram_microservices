@@ -3,9 +3,11 @@ import {config} from './config/config';
 
 let bucketName: string = config.aws_media_bucket;
 
-// Configure AWS
-const credentials = new AWS.SharedIniFileCredentials({profile: config.aws_profile});
-AWS.config.credentials = credentials;
+//Configure AWS
+if(config.aws_profile !== "DEPLOYED") {
+  var credentials = new AWS.SharedIniFileCredentials({profile: c.aws_profile});
+ AWS.config.credentials = credentials;
+}
 
 export const s3 = new AWS.S3({
   signatureVersion: 'v4',
