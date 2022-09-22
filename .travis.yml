@@ -36,4 +36,4 @@ after_success:
   - docker push khalid5165/reverseproxy:final-v1
   - docker push khalid5165/udagram-api-user:final-v1
   - docker push khalid5165/udagram-api-feed:final-v1
-  - docker push khalid5165/udagram-frontend:final-v1
+  - docker push khalid5165/udagram-frontend:final-v1final-v1
