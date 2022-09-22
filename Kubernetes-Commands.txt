@@ -16,6 +16,7 @@ kubectl apply -f env-configmap.yaml
 
 (deployments & services):-
 kubectl apply -f all-deployments.yaml
+kubectl apply -f all-hpa.yaml
 kubectl apply -f all-services.yaml
 
 
@@ -32,12 +33,22 @@ kubectl get pods
 
 ----(deleting resources):-
 
+
+kubectl delete hpa --all
 kubectl delete deployment --all
 kubectl delete service --all 
 kubectl delete pods --all 
 
 
 eksctl delete cluster --name=udaCluster
+
+
+
+
+
+kubectl annotate serviceaccount cluster-autoscaler \
+  -n kube-system \
+  eks.amazonaws.com/role-arn=arn:aws:iam::422420958819:role/AmazonEKSClusterAutoscalerRole
 
 
 

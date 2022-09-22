@@ -16,9 +16,14 @@ spec:
     spec:
       containers:
       - name: feed-app
-        image: khalid5165/udagram-api-feed
+        image: khalid5165/udagram-api-feed:final-v1      
         ports:
         - containerPort: 8080
+        resources:
+          requests:
+            cpu: "200m"
+          limits:
+            cpu: "400m"
         #setting env-vars:
         env:
         #setting secrets:
@@ -99,9 +104,14 @@ spec:
     spec:
       containers:
       - name: user-app
-        image: khalid5165/udagram-api-user
+        image: khalid5165/udagram-api-user:final-v1     
         ports:
         - containerPort: 8080
+        resources:
+          requests:
+            cpu: "200m"
+          limits:
+            cpu: "400m"
         #setting env-vars:
         env:
         #setting secrets:
@@ -182,9 +192,14 @@ spec:
     spec:
       containers:
       - name: udagram-frontend
-        image: khalid5165/udagram-frontend:v0
+        image: khalid5165/udagram-frontend:new-v0             
         ports:
         - containerPort: 80
+        resources:
+          requests:
+            cpu: "200m"
+          limits:
+            cpu: "400m"
         #setting env-vars:
         env:
         #setting secrets:
@@ -264,16 +279,14 @@ spec:
         service: reverseproxy
     spec:
       containers:
-      - image: khalid5165/reverseproxy:pls
+      - image: khalid5165/reverseproxy:lts
         name: reverseproxy
-        imagePullPolicy: Always          
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "250m"
-          limits:
-            memory: "1024Mi"
-            cpu: "500m"       
+        imagePullPolicy: Always               
         ports:
         - containerPort: 8080
+        resources:
+          requests:
+            cpu: "200m"
+          limits:
+            cpu: "400m"
       restartPolicy: Always
